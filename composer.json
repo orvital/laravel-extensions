@@ -1,0 +1,33 @@
+{
+    "name": "orvital/laravel-extensions",
+    "description": "Extensions for Laravel",
+    "type": "library",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jona Goldman",
+            "email": "jonagoldman@gmail.com"
+        }
+    ],
+    "require": {
+        "laravel/framework": "^9.3"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Orvital\\Extensions\\": "src/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Orvital\\Extensions\\ExtensionsServiceProvider"
+            ]
+        }
+    }
+}
