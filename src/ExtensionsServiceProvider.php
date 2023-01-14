@@ -21,6 +21,6 @@ class ExtensionsServiceProvider extends ServiceProvider
 
         $this->app->singleton('session', function ($app) {
             return new SessionManager($app);
-        }
+        });
 
 }
