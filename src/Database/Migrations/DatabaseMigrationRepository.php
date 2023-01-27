@@ -1,6 +1,6 @@
 <?php
 
-namespace Orvital\Extensions\Migration;
+namespace Orvital\Extensions\Database\Migrations;
 
 use Illuminate\Database\Migrations\DatabaseMigrationRepository as BaseDatabaseMigrationRepository;
 use Illuminate\Support\Facades\Date;
