@@ -7,6 +7,7 @@ use Orvital\Extensions\Database\Migrations\DatabaseMigrationRepository;
 use Orvital\Extensions\Session\SessionManager;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\File;
+use Orvital\Extensions\Database\Migrations\MigrationCreator;
 
 class ExtensionsServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,10 @@ class ExtensionsServiceProvider extends ServiceProvider
     {
         $this->app->extend('migration.repository', function ($repository, $app) {
             return new DatabaseMigrationRepository($app['db'], $app['config']['database.migrations']);
+        });
+
+        $this->app->extend('migration.creator', function ($repository, $app) {
+            return new MigrationCreator($app['files'], $app->basePath('stubs'));
         });
 
         $this->app->singleton('session', function ($app) {
