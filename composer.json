@@ -10,7 +10,11 @@
         }
     ],
     "require": {
-        "laravel/framework": "^9.3"
+        "php": "^8.2",
+        "illuminate/contracts": "^9.21|^10.0",
+        "illuminate/database": "^9.21|^10.0",
+        "illuminate/support": "^9.21|^10.0",
+        "illuminate/session": "^9.21|^10.0"
     },
     "require-dev": {
         "laravel/pint": "^1.2"
