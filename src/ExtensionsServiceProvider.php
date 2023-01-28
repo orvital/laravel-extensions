@@ -2,12 +2,13 @@
 
 namespace Orvital\Extensions;
 
-use Illuminate\Support\ServiceProvider;
-use Orvital\Extensions\Database\Migrations\DatabaseMigrationRepository;
-use Orvital\Extensions\Session\SessionManager;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
+use Orvital\Extensions\Console\Commands\RouteListModCommand;
+use Orvital\Extensions\Database\Migrations\DatabaseMigrationRepository;
 use Orvital\Extensions\Database\Migrations\MigrationCreator;
+use Orvital\Extensions\Session\SessionManager;
 
 class ExtensionsServiceProvider extends ServiceProvider
 {
@@ -41,6 +42,12 @@ class ExtensionsServiceProvider extends ServiceProvider
         Schema::defaultStringLength(192);
 
         $this->loadMigrationsFrom($this->getMigrationsPaths());
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                RouteListModCommand::class,
+            ]);
+        }
     }
 
     /**
@@ -48,8 +55,9 @@ class ExtensionsServiceProvider extends ServiceProvider
      */
     protected function getMigrationsPaths(): array
     {
-        $migrationsPath = database_path('migrations');
+        $migrationsPath = $this->app->databasePath('migrations');
         $directories = File::directories($migrationsPath);
+
         return array_merge([$migrationsPath], $directories);
     }
 }
