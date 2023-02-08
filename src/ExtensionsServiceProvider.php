@@ -5,6 +5,7 @@ namespace Orvital\Extensions;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use Orvital\Extensions\Auth\Passwords\PasswordBrokerManager;
 use Orvital\Extensions\Console\Commands\RouteListModCommand;
 use Orvital\Extensions\Database\Migrations\DatabaseMigrationRepository;
 use Orvital\Extensions\Database\Migrations\MigrationCreator;
@@ -19,6 +20,7 @@ class ExtensionsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Deferred Providers
         $this->app->extend('migration.repository', function ($repository, $app) {
             return new DatabaseMigrationRepository($app['db'], $app['config']['database.migrations']);
         });
@@ -27,6 +29,11 @@ class ExtensionsServiceProvider extends ServiceProvider
             return new MigrationCreator($app['files'], $app->basePath('stubs'));
         });
 
+        $this->app->singleton('auth.password', function ($app) {
+            return new PasswordBrokerManager($app);
+        });
+
+        // Not Deferred Providers
         $this->app->singleton('session', function ($app) {
             return new SessionManager($app);
         });
