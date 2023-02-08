@@ -29,7 +29,7 @@ class ExtensionsServiceProvider extends ServiceProvider
             return new MigrationCreator($app['files'], $app->basePath('stubs'));
         });
 
-        $this->app->singleton('auth.password', function ($app) {
+        $this->app->extend('auth.password', function ($repository, $app) {
             return new PasswordBrokerManager($app);
         });
 
