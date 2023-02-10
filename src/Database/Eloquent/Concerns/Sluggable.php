@@ -23,9 +23,21 @@ trait Sluggable
     public static function bootSluggable()
     {
         static::saving(function (Model $model) {
-            foreach ($model->sluggable() as $key => $options) {
-                $model->{$key} = Str::slug($model->{$options['source']});
-            }
+            $model->fillSlugs();
         });
+    }
+
+    public function fillSlugs(): self
+    {
+        foreach ($this->sluggable() as $key => $column) {
+            $this->{$key} = $this->makeSlug($column);
+        }
+
+        return $this;
+    }
+
+    public function makeSlug(string $column): string
+    {
+        return Str::slug($this->{$column});
     }
 }
