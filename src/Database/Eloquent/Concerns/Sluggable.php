@@ -15,6 +15,15 @@ trait Sluggable
      */
     abstract public function sluggable(): array;
 
+    // public static function sluggableOptions(): array
+    // {
+    //     return [
+    //         'separator' => '-',
+    //         'language' => 'en',
+    //         'dictionary' => ['@' => 'at'],
+    //     ];
+    // }
+
     /**
      * Boot the trait for the static model.
      *
@@ -23,21 +32,21 @@ trait Sluggable
     public static function bootSluggable()
     {
         static::saving(function (Model $model) {
-            $model->fillSlugs();
+            $model->slugify();
         });
     }
 
-    public function fillSlugs(): self
+    public function slugify(): self
     {
         foreach ($this->sluggable() as $key => $column) {
-            $this->{$key} = $this->makeSlug($column);
+            $this->{$key} = $this->makeSlug($this->{$column});
         }
 
         return $this;
     }
 
-    public function makeSlug(string $column): string
+    public function makeSlug(string $value): string
     {
-        return Str::slug($this->{$column});
+        return Str::slug($value);
     }
 }
