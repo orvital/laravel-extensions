@@ -45,7 +45,7 @@ trait Sluggable
         return $this;
     }
 
-    public function makeSlug(string $value): string
+    public static function makeSlug(string $value): string
     {
         return Str::slug($value);
     }

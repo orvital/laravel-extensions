@@ -9,16 +9,16 @@ class SluggableTest extends TestCase
 {
     public function test_slug_attributes_are_set_when_creating_model(): void
     {
-        $model = TestModel::create(['name' => 'John Doe']);
+        $model = TestModel::query()->create(['name' => 'John Doe']);
 
         $this->assertEquals('john-doe', $model->slug);
     }
 
-    public function test_slug_attributes_are_set_when_filling_model(): void
+    public function test_slug_attributes_are_set_when_saving_model(): void
     {
-        $model = TestModel::make(['name' => 'John Doe']);
+        $model = TestModel::query()->make(['name' => 'John Doe']);
 
-        $model->fillSlugs();
+        $model->save();
 
         $this->assertEquals('john-doe', $model->slug);
     }
