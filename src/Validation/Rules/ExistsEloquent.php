@@ -99,7 +99,7 @@ class ExistsEloquent implements ValidationRule
             if ($this->customMessage !== null) {
                 $fail($this->customMessage);
             } else {
-                $fail($this->customMessageTranslationKey ?? 'modelValidationRules::validation.exists_model')->translate([
+                $fail($this->customMessageTranslationKey ?? 'extensions::validation.exists_model')->translate([
                     'attribute' => $attribute,
                     'model' => strtolower(class_basename($this->model)),
                     'value' => $value,

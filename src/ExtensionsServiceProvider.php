@@ -50,6 +50,8 @@ class ExtensionsServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom($this->getMigrationsPaths());
 
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'extensions');
+
         if ($this->app->runningInConsole()) {
             $this->commands([
                 RouteListModCommand::class,
