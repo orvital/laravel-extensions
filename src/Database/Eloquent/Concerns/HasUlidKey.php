@@ -17,7 +17,7 @@ trait HasUlidKey
     {
         static::creating(function (self $model) {
             if (! $model->getKey()) {
-                $model->{$model->getKeyName()} = $this->formatUlid();
+                $model->{$model->getKeyName()} = $model->formatUlid();
             }
         });
 
