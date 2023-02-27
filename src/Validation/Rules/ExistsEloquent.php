@@ -85,11 +85,13 @@ class ExistsEloquent implements ValidationRule
         /** @var Model|Builder $builder */
         $builder = new $this->model();
         $modelKeyName = $builder->getKeyName();
+
         if (null === $this->key) {
             $builder = $builder->where($modelKeyName, $value);
         } else {
             $builder = $builder->where($this->key, $value);
         }
+        
         if (null !== $this->builderClosure) {
             $builderClosure = $this->builderClosure;
             $builder = $builderClosure($builder);

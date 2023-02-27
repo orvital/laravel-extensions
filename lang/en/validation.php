@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'exists_model' => 'The resource does not exist.',
-    'unique_model' => 'The resource already exists.',
+    'exists_model' => 'A resource with this :attribute does not exist.',
+    'unique_model' => 'A resource with this :attribute already exists.',
 ];

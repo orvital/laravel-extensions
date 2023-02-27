@@ -66,10 +66,12 @@ class UniqueEloquent implements ValidationRule
         $builder = new $this->model();
         $modelKeyName = $builder->getKeyName();
         $builder = $builder->where(null === $this->key ? $modelKeyName : $this->key, $value);
+
         if (null !== $this->builderClosure) {
             $builderClosure = $this->builderClosure;
             $builder = $builderClosure($builder);
         }
+        
         if (null !== $this->ignoreId) {
             $builder = $builder->where(
                 null === $this->ignoreColumn ? $modelKeyName : $this->ignoreColumn,
