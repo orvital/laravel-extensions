@@ -11,7 +11,7 @@ class DatabaseMigrationRepository extends BaseDatabaseMigrationRepository
     public function log($file, $batch)
     {
         $this->table()->insert([
-            'id' => strtolower((string) Str::ulid()),
+            'id' => (string) Str::ulid(),
             'migration' => $file,
             'batch' => $batch,
             'created_at' => Date::now(),

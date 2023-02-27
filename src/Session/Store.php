@@ -25,6 +25,6 @@ class Store extends BaseStore
      */
     protected function generateSessionId()
     {
-        return strtolower((string) Str::ulid());
+        return (string) Str::ulid();
     }
 }

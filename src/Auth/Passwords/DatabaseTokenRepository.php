@@ -148,7 +148,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     protected function getPayload(CanResetPasswordContract $user, string $token): array
     {
         return [
-            'id' => strtolower((string) Str::ulid()),
+            'id' => (string) Str::ulid(),
             'email' => $user->getEmailForPasswordReset(),
             'token' => $this->hasher->make($token),
             'created_at' => new Carbon(),
