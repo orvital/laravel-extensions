@@ -4,14 +4,14 @@ namespace Orvital\Extensions\Database\Migrations;
 
 use Illuminate\Database\Migrations\DatabaseMigrationRepository as BaseDatabaseMigrationRepository;
 use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Str;
+use Orvital\Extensions\Support\Uid\Ulid;
 
 class DatabaseMigrationRepository extends BaseDatabaseMigrationRepository
 {
     public function log($file, $batch)
     {
         $this->table()->insert([
-            'id' => (string) Str::ulid(),
+            'id' => (string) new Ulid(),
             'migration' => $file,
             'batch' => $batch,
             'created_at' => Date::now(),

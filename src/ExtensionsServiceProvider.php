@@ -20,6 +20,8 @@ class ExtensionsServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(__DIR__.'/../config/extensions.php', 'extensions');
+
         // Deferred Providers
         $this->app->extend('migration.repository', function ($repository, $app) {
             return new DatabaseMigrationRepository($app['db'], $app['config']['database.migrations']);
@@ -46,7 +48,11 @@ class ExtensionsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(192);
+        $this->publishes([
+            __DIR__.'/../config/extensions.php' => $this->app->configPath('extensions.php'),
+        ]);
+
+        Schema::defaultStringLength(config('extensions.schema.default_string_length'));
 
         $this->loadMigrationsFrom($this->getMigrationsPaths());
 

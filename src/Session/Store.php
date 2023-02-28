@@ -3,7 +3,7 @@
 namespace Orvital\Extensions\Session;
 
 use Illuminate\Session\Store as BaseStore;
-use Illuminate\Support\Str;
+use Orvital\Extensions\Support\Uid\Ulid;
 
 class Store extends BaseStore
 {
@@ -15,7 +15,7 @@ class Store extends BaseStore
      */
     public function isValidId($id)
     {
-        return Str::isUlid($id);
+        return is_string($id) ? Ulid::isValid($id) : false;
     }
 
     /**
@@ -25,6 +25,6 @@ class Store extends BaseStore
      */
     protected function generateSessionId()
     {
-        return (string) Str::ulid();
+        return (string) new Ulid();
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\ConnectionInterface;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Orvital\Extensions\Support\Uid\Ulid;
 
 class DatabaseTokenRepository implements TokenRepositoryInterface
 {
@@ -148,7 +149,7 @@ class DatabaseTokenRepository implements TokenRepositoryInterface
     protected function getPayload(CanResetPasswordContract $user, string $token): array
     {
         return [
-            'id' => (string) Str::ulid(),
+            'id' => (string) new Ulid(),
             'email' => $user->getEmailForPasswordReset(),
             'token' => $this->hasher->make($token),
             'created_at' => new Carbon(),
